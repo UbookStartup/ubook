@@ -28,6 +28,7 @@
     ".eslintrc.cjs",
     "postcss.config.cjs",
     "vite.config.ts",
+    "commitlint.config.js",
     "src",
     "src/main.tsx"
   ],
