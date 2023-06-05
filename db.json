@@ -1,0 +1,96 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "The Path Through Shadows",
+      "pageNumber": 200,
+      "image": "book1.jpg",
+      "genre": "Fiction",
+      "author": "John Smith",
+      "shortDescription": "A captivating fiction book."
+    },
+    {
+      "id": 2,
+      "title": "Stellar Symphony",
+      "pageNumber": 350,
+      "image": "Secrets of the Past",
+      "genre": "Mystery",
+      "author": "Jane Doe",
+      "shortDescription": "An intriguing mystery novel."
+    },
+    {
+      "id": 3,
+      "title": "Stellar Symphony",
+      "pageNumber": 150,
+      "image": "book3.jpg",
+      "genre": "Fantasy",
+      "author": "Alex Johnson",
+      "shortDescription": "A magical fantasy adventure."
+    },
+    {
+      "id": 4,
+      "title": "Labyrinths of the Mind",
+      "pageNumber": 280,
+      "image": "book4.jpg",
+      "genre": "Romance",
+      "author": "Sarah Thompson",
+      "shortDescription": "A heartwarming romance story."
+    },
+    {
+      "id": 5,
+      "title": "The Magic of Radiant Words",
+      "pageNumber": 400,
+      "image": "book5.jpg",
+      "genre": "Thriller",
+      "author": "Michael Davis",
+      "shortDescription": "A gripping thriller that keeps you on the edge of your seat."
+    },
+    {
+      "id": 6,
+      "title": "Forgotten Melodies",
+      "pageNumber": 220,
+      "image": "book6.jpg",
+      "genre": "Science Fiction",
+      "author": "Emily Adams",
+      "shortDescription": "A mind-bending science fiction adventure."
+    },
+    {
+      "id": 7,
+      "title": "Captives of Eternity",
+      "pageNumber": 180,
+      "image": "book7.jpg",
+      "genre": "Historical Fiction",
+      "author": "David Wilson",
+      "shortDescription": "A gripping tale set in the past."
+    },
+    {
+      "id": 8,
+      "title": "The Last Dawn",
+      "pageNumber": 320,
+      "image": "book8.jpg",
+      "genre": "Horror",
+      "author": "Jessica Turner",
+      "shortDescription": "A chilling horror novel that will give you goosebumps."
+    },
+    {
+      "id": 9,
+      "title": "Lights of the Evening City",
+      "pageNumber": 250,
+      "image": "book9.jpg",
+      "genre": "Adventure",
+      "author": "Robert Anderson",
+      "shortDescription": "An exciting adventure filled with twists and turns."
+    },
+    {
+      "id": 10,
+      "title": "Origins of Destiny",
+      "pageNumber": 190,
+      "image": "book10.jpg",
+      "genre": "Biography",
+      "author": "Laura Mitchell",
+      "shortDescription": "An inspiring biography of a remarkable person."
+    }
+  ],
+  "posts": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "users": { "name": "typicode" }
+}
