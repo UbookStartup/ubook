@@ -21,12 +21,16 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/assets/*": ["./src/assets/*"]
     }
   },
   "include": [
     ".eslintrc.cjs",
     "postcss.config.cjs",
+    "tailwind.config.js",
     "vite.config.ts",
     "commitlint.config.js",
     "src",
