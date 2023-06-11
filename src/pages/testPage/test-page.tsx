@@ -1,8 +1,11 @@
-import { Button } from './shared/components/ui/button';
+import { Button } from '@/shared/components';
+import { useTestMock } from '@/shared/hooks';
 import { useState } from 'react';
 
-export function App() {
+export function TestPage() {
   const [count, setCount] = useState<number>(0);
+
+  useTestMock();
 
   return (
     <div className="flex flex-col items-center justify-between space-y-3">

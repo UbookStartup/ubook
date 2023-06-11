@@ -29,6 +29,7 @@ module.exports = {
     'import/order': 0,
     'import/extensions': 0,
     'react/function-component-definition': 0,
+    'no-restricted-imports': ['error', { patterns: ['@/features/*/*'] }],
     'prettier/prettier': [
       'error',
       {
