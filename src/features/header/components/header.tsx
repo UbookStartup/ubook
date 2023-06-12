@@ -1,9 +1,11 @@
 import { useSwitchTheme } from '../hooks/useSwitchTheme';
 import { Button, Input } from '@/shared/components';
 import { Moon, Sun } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 export const Header = () => {
   const [, toggleTheme] = useSwitchTheme();
+  const location = useLocation().pathname;
   return (
     <div className="flex h-20 shrink-0 items-center justify-between">
       {/* Left part */}
@@ -11,10 +13,12 @@ export const Header = () => {
         <p className="mr-1 w-1/6 text-2xl font-semibold first-letter:font-bold first-letter:text-violet-600">
           Ubook
         </p>
-        <Input
-          className="max-w-xl outline-none"
-          placeholder="Введите название или автора..."
-        />
+        {!(location === '/login') && (
+          <Input
+            className="max-w-xl outline-none"
+            placeholder="Введите название или автора..."
+          />
+        )}
       </div>
       {/* Right part */}
       <div className="flex items-center">
