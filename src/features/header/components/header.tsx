@@ -10,7 +10,7 @@ export const Header = () => {
     <div className="flex h-20 shrink-0 items-center justify-between">
       {/* Left part */}
       <div className="flex w-full items-center">
-        <p className="mr-1 w-1/6 text-2xl font-semibold first-letter:font-bold first-letter:text-violet-600">
+        <p className="mr-1 w-1/6 select-none text-2xl font-semibold first-letter:font-bold first-letter:text-violet-600">
           Ubook
         </p>
         {!(location === '/login') && (
