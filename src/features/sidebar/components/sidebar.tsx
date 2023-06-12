@@ -5,7 +5,7 @@ import { generateKey } from '@/shared/utils';
 
 export const Sidebar = () => {
   return (
-    <div className="w-1/6 p-7">
+    <div className="w-1/6 p-7 pt-0">
       <Separator />
       {sidebarButtons.map((button) => (
         <SidebarButton
