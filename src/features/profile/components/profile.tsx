@@ -1,35 +1,19 @@
-// @ts-nocheck
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, Input } from '@/shared/components';
-import { ProfileInput } from './ProfileInput';
 import { Pass } from './Pass';
-import { changeData } from '@/shared/state/user';
-
-export interface UserInterface {
-  user: {
-    id: number;
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
-    imageUrl: string;
-  };
-}
+import { ProfileInput } from './ProfileInput';
+import { Button, Input } from '@/shared/components';
+import { RootState, changeData } from '@/shared/context';
+import { IUser } from '@/shared/lib';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
   const [isPhotoChanging, setIsPhotoChanging] = React.useState(false);
-  const { name, surname, email, imageUrl } = useSelector(
-    (state: UserInterface) => state.user
-  );
 
-  const [formData, setFormData] = React.useState({
-    name,
-    surname,
-    email,
-    imageUrl: '',
-  });
+  const user = useSelector((state: RootState) => state.user);
+
+  const [formData, setFormData] = React.useState<IUser>(user);
+
   const dispatch = useDispatch();
 
   function changePhoto() {
@@ -50,12 +34,12 @@ export const Profile = () => {
   }
 
   return (
-    <div className="ps-8">
+    <div>
       <h2 className="mb-10 text-3xl font-medium">Профиль</h2>
       <div className="flex">
         <div className="mr-20 shrink-0">
           <img
-            src={imageUrl}
+            src={user.imageUrl}
             className="mb-4 h-40 w-40 object-cover"
             alt="Фото"
           />
@@ -86,24 +70,21 @@ export const Profile = () => {
               name="email"
               type="text"
               text="Почта"
-              value={email}
-              formData={formData}
+              value={formData.email}
               setFormData={setFormData}
             />
             <ProfileInput
               name="name"
               type="text"
               text="Имя"
-              value={name}
-              formData={formData}
+              value={formData.name}
               setFormData={setFormData}
             />
             <ProfileInput
               name="surname"
               type="text"
               text="Фамилия"
-              value={surname}
-              formData={formData}
+              value={formData.surname}
               setFormData={setFormData}
             />
             {!isPassChanging && <Pass setIsPassChanging={setIsPassChanging} />}
@@ -113,16 +94,14 @@ export const Profile = () => {
                   name="oldPass"
                   type="password"
                   text="Старый пароль"
-                  value=""
-                  formData={formData}
+                  value={formData.password}
                   setFormData={setFormData}
                 />
                 <ProfileInput
                   name="newPass"
                   type="password"
                   text="Новый пароль"
-                  value=""
-                  formData={formData}
+                  value={formData.password}
                   setFormData={setFormData}
                 />
                 <button
