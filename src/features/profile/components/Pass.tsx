@@ -1,3 +1,5 @@
+import { Pencil } from 'lucide-react';
+
 interface PassInterface {
   setIsPassChanging: (state: boolean) => void;
 }
@@ -20,11 +22,10 @@ export const Pass = ({ setIsPassChanging }: PassInterface) => {
         style={{
           position: 'absolute',
           right: '10px',
-          fontSize: '12px',
         }}
         onClick={changePassword}
       >
-        🖊️
+        <Pencil size={14} />
       </button>
     </div>
   );

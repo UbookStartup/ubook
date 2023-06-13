@@ -16,6 +16,10 @@ export const Profile = () => {
     setIsPhotoChanging(false);
   }
 
+  function cancelPassChange() {
+    setIsPassChanging(false);
+  }
+
   return (
     <div className="ps-8">
       <h2 className="mb-10 text-3xl font-medium">Профиль</h2>
@@ -33,18 +37,25 @@ export const Profile = () => {
             Обновить фотографию
           </button>
           {isPhotoChanging && (
-            <Input placeholder="Вставьте URL" className="w-40" />
+            <Input placeholder="Вставьте URL" className="mt-1 w-40" />
           )}
         </div>
         <div>
           <div className="mb-20 flex flex-col gap-4">
             <ProfileInput type="text" text="Почта" value="mail@chernix.com" />
-            <ProfileInput type="text" text="Имя" value="Кирилл Черных" />
+            <ProfileInput type="text" text="Имя" value="Кирилл" />
+            <ProfileInput type="text" text="Фамилия" value="Черных" />
             {!isPassChanging && <Pass setIsPassChanging={setIsPassChanging} />}
             {isPassChanging && (
               <>
                 <ProfileInput type="password" text="Старый пароль" value="" />
                 <ProfileInput type="password" text="Новый пароль" value="" />
+                <button
+                  onClick={cancelPassChange}
+                  className="text-sm text-accent-foreground/50"
+                >
+                  Отменить
+                </button>
               </>
             )}
           </div>
