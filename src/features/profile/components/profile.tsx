@@ -1,19 +1,48 @@
+// @ts-nocheck
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input } from '@/shared/components';
 import { ProfileInput } from './ProfileInput';
 import { Pass } from './Pass';
+import { changeData } from '@/shared/state/user';
+
+export interface UserInterface {
+  user: {
+    id: number;
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    imageUrl: string;
+  };
+}
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
   const [isPhotoChanging, setIsPhotoChanging] = React.useState(false);
+  const { name, surname, email, imageUrl } = useSelector(
+    (state: UserInterface) => state.user
+  );
+
+  const [formData, setFormData] = React.useState({
+    name,
+    surname,
+    email,
+    imageUrl: '',
+  });
+  const dispatch = useDispatch();
 
   function changePhoto() {
     setIsPhotoChanging((prevState) => !prevState);
+    setFormData((prevData) => {
+      return { ...prevData, imageUrl: '' };
+    });
   }
 
   function saveData() {
     setIsPassChanging(false);
     setIsPhotoChanging(false);
+    dispatch(changeData(formData));
   }
 
   function cancelPassChange() {
@@ -26,7 +55,7 @@ export const Profile = () => {
       <div className="flex">
         <div className="mr-20 shrink-0">
           <img
-            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+            src={imageUrl}
             className="mb-4 h-40 w-40 object-cover"
             alt="Фото"
           />
@@ -37,19 +66,65 @@ export const Profile = () => {
             Обновить фотографию
           </button>
           {isPhotoChanging && (
-            <Input placeholder="Вставьте URL" className="mt-1 w-40" />
+            <Input
+              name="imageUrl"
+              placeholder="Вставьте URL"
+              className="mt-1 w-40"
+              value={formData.imageUrl}
+              onChange={(event) =>
+                setFormData((prevData) => {
+                  return { ...prevData, imageUrl: event.target.value };
+                })
+              }
+              autoComplete="on"
+            />
           )}
         </div>
         <div>
           <div className="mb-20 flex flex-col gap-4">
-            <ProfileInput type="text" text="Почта" value="mail@chernix.com" />
-            <ProfileInput type="text" text="Имя" value="Кирилл" />
-            <ProfileInput type="text" text="Фамилия" value="Черных" />
+            <ProfileInput
+              name="email"
+              type="text"
+              text="Почта"
+              value={email}
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <ProfileInput
+              name="name"
+              type="text"
+              text="Имя"
+              value={name}
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <ProfileInput
+              name="surname"
+              type="text"
+              text="Фамилия"
+              value={surname}
+              formData={formData}
+              setFormData={setFormData}
+            />
             {!isPassChanging && <Pass setIsPassChanging={setIsPassChanging} />}
             {isPassChanging && (
               <>
-                <ProfileInput type="password" text="Старый пароль" value="" />
-                <ProfileInput type="password" text="Новый пароль" value="" />
+                <ProfileInput
+                  name="oldPass"
+                  type="password"
+                  text="Старый пароль"
+                  value=""
+                  formData={formData}
+                  setFormData={setFormData}
+                />
+                <ProfileInput
+                  name="newPass"
+                  type="password"
+                  text="Новый пароль"
+                  value=""
+                  formData={formData}
+                  setFormData={setFormData}
+                />
                 <button
                   onClick={cancelPassChange}
                   className="text-sm text-accent-foreground/50"

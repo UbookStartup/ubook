@@ -15,11 +15,11 @@ const user = createSlice({
     changeData: (state, action) => {
       return {
         ...state,
-        name: action.payload.name,
-        surname: action.payload.surname,
-        email: action.payload.email,
-        imageUrl: action.payload.imageUrl,
-        password: action.payload.password,
+        name: action.payload.name || state.name,
+        surname: action.payload.surname || state.surname,
+        email: action.payload.email || state.email,
+        imageUrl: action.payload.imageUrl || state.imageUrl,
+        password: action.payload.password || state.password,
       };
     },
   },
