@@ -1,35 +1,22 @@
-// @ts-nocheck
-import React from 'react';
 import { Input } from '@/shared/components';
+import { IUser } from '@/shared/lib';
+import React, { FC } from 'react';
 
-interface FormInterface {
-  user: {
-    id: number;
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
-    imageUrl: string;
-  };
-}
-
-interface ProfileInputInterface {
+interface IProfileInputProps {
   type: string;
   name: string;
   text: string;
-  value: string;
-  formData: FormInterface;
-  setFormData: (prevState: FormInterface) => FormInterface;
+  value: string | number;
+  setFormData: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
-export const ProfileInput = ({
+export const ProfileInput: FC<IProfileInputProps> = ({
   type,
   name,
   text,
   value,
-  formData,
   setFormData,
-}: ProfileInputInterface) => {
+}) => {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormData((prevData) => {
       return { ...prevData, [event.target.name]: event.target.value };
@@ -37,15 +24,12 @@ export const ProfileInput = ({
   }
 
   return (
-    <div
-      className="grid grid-cols-[140px_1fr] items-center"
-      style={{ position: 'relative' }}
-    >
+    <div className="relative grid grid-cols-[140px_1fr] items-center">
       <span>{text}</span>
       <Input
         name={name}
         type={type}
-        value={formData[name]}
+        value={value}
         onChange={handleChange}
         autoComplete="on"
       />
