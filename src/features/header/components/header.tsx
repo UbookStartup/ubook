@@ -15,7 +15,7 @@ export const Header = () => {
         </p>
         {!(location === '/login') && (
           <Input
-            className="max-w-xl outline-none"
+            className="max-w-xl rounded-none border-b border-input"
             placeholder="Введите название или автора..."
           />
         )}
