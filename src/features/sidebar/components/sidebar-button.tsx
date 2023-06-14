@@ -1,4 +1,5 @@
 import { Button, Separator } from '@/shared/components';
+import { cn } from '@/shared/utils';
 import { ArrowRight, ChevronsUpDown, Plus } from 'lucide-react';
 import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,6 +10,7 @@ export interface SidebarButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   path?: string;
+  className?: string;
   icon: 'plus' | 'arrow';
 }
 
@@ -17,6 +19,7 @@ export const SidebarButton: FC<SidebarButtonProps> = ({
   icon,
   path,
   children,
+  className = '',
   ...props
 }) => {
   const location = useLocation().pathname;
@@ -27,11 +30,14 @@ export const SidebarButton: FC<SidebarButtonProps> = ({
         asChild
         size="lg"
         variant="ghost"
-        className={`flex w-full justify-between px-3 pl-0 hover:bg-transparent ${
-          location === path
-            ? 'text-accent-foreground'
-            : 'text-accent-foreground/50'
-        }`}
+        className={cn(
+          `flex w-full justify-between px-3 pl-0 hover:bg-transparent ${
+            location === path
+              ? 'text-accent-foreground'
+              : 'text-accent-foreground/50'
+          }`,
+          className
+        )}
       >
         {path ? (
           <Link to={path}>

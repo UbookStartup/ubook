@@ -12,7 +12,7 @@ import { FC, useState } from 'react';
 // eslint-disable-next-line spaced-comment
 //TODO Change favorite button to toggle
 
-interface BookCardProps extends React.HTMLProps<HTMLDivElement> {
+interface BookCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   author: string;
   image?: string;
@@ -54,7 +54,7 @@ export const BookCard: FC<BookCardProps> = ({
             <TooltipProvider delayDuration={200}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <small className="text-lg font-medium leading-none">
+                  <small className="cursor-default text-lg font-medium leading-none">
                     {trimLine(title, 15)}
                   </small>
                 </TooltipTrigger>

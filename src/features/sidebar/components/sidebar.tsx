@@ -34,6 +34,7 @@ export const Sidebar = () => {
               icon={button.icon}
               title={button.title}
               path={button.path}
+              className="pl-3"
             />
           ))}
         </CollapsibleContent>
