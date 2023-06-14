@@ -1,10 +1,11 @@
 import { Pass } from './Pass';
-import { ProfileInput } from './ProfileInput';
 import { Button, Input } from '@/shared/components';
 import { RootState, changeData } from '@/shared/context';
 import { IUser } from '@/shared/lib';
+import { IPass } from '@/shared/lib/IPass';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ProfileInput } from './ProfileInput';
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
@@ -13,6 +14,11 @@ export const Profile = () => {
   const user = useSelector((state: RootState) => state.user);
 
   const [formData, setFormData] = React.useState<IUser>(user);
+  const [passwords, setPasswords] = React.useState<IPass>({
+    oldPass: '',
+    newPass: '',
+    passError: false,
+  });
 
   const dispatch = useDispatch();
 
@@ -24,9 +30,18 @@ export const Profile = () => {
   }
 
   function saveData() {
-    setIsPassChanging(false);
-    setIsPhotoChanging(false);
-    dispatch(changeData(formData));
+    if (formData.password !== passwords.oldPass) {
+      setPasswords((prev) => {
+        return { ...prev, passError: true };
+      });
+    } else {
+      setIsPassChanging(false);
+      setIsPhotoChanging(false);
+      setFormData((prevData) => {
+        return { ...prevData, password: passwords.newPass };
+      });
+      dispatch(changeData(formData));
+    }
   }
 
   function cancelPassChange() {
@@ -53,7 +68,7 @@ export const Profile = () => {
             <Input
               name="imageUrl"
               placeholder="Вставьте URL"
-              className="mt-1 w-40"
+              className="ml-1 mt-1 flex h-10 w-36 rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
               value={formData.imageUrl}
               onChange={(event) =>
                 setFormData((prevData) => {
@@ -87,26 +102,39 @@ export const Profile = () => {
               value={formData.surname}
               setFormData={setFormData}
             />
-            {!isPassChanging && <Pass setIsPassChanging={setIsPassChanging} />}
+            {!isPassChanging && (
+              <Pass
+                setIsPassChanging={setIsPassChanging}
+                setPasswords={setPasswords}
+              />
+            )}
             {isPassChanging && (
               <>
                 <ProfileInput
                   name="oldPass"
                   type="password"
                   text="Старый пароль"
-                  value={formData.password}
-                  setFormData={setFormData}
+                  value={passwords.oldPass}
+                  setFormData={setPasswords}
                 />
                 <ProfileInput
                   name="newPass"
                   type="password"
                   text="Новый пароль"
-                  value={formData.password}
-                  setFormData={setFormData}
+                  value={passwords.newPass}
+                  setFormData={setPasswords}
                 />
+                {passwords.passError && (
+                  <div
+                    style={{ color: 'red', fontSize: '12px', textAlign: 'end' }}
+                  >
+                    Пароли не совпадают
+                  </div>
+                )}
                 <button
                   onClick={cancelPassChange}
                   className="text-sm text-accent-foreground/50"
+                  style={{ textAlign: 'end' }}
                 >
                   Отменить
                 </button>

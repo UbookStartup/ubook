@@ -1,12 +1,15 @@
+import { IPass } from '@/shared/lib/IPass';
 import { Pencil } from 'lucide-react';
 
 interface PassInterface {
   setIsPassChanging: (state: boolean) => void;
+  setPasswords: React.Dispatch<React.SetStateAction<IPass>>;
 }
 
-export const Pass = ({ setIsPassChanging }: PassInterface) => {
+export const Pass = ({ setIsPassChanging, setPasswords }: PassInterface) => {
   function changePassword() {
     setIsPassChanging(true);
+    setPasswords({ oldPass: '', newPass: '', passError: false });
   }
 
   return (
