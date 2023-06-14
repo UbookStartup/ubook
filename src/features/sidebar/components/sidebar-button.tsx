@@ -3,6 +3,8 @@ import { ArrowRight, ChevronsUpDown, Plus } from 'lucide-react';
 import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+// TODO Add className props and set pl-3 to collabs button
+
 export interface SidebarButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
@@ -25,7 +27,7 @@ export const SidebarButton: FC<SidebarButtonProps> = ({
         asChild
         size="lg"
         variant="ghost"
-        className={`flex w-full justify-between px-3 hover:bg-transparent ${
+        className={`flex w-full justify-between px-3 pl-0 hover:bg-transparent ${
           location === path
             ? 'text-accent-foreground'
             : 'text-accent-foreground/50'

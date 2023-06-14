@@ -36,9 +36,13 @@ export const BookCard: FC<BookCardProps> = ({
     <div {...props} className="flex w-60 shrink-0 flex-col gap-4">
       <div className="relative h-60 bg-secondary-foreground/20 text-center">
         {image ? (
-          <img src={image} alt="book" className=" h-60 w-full object-cover" />
+          <img
+            src={image}
+            alt="book"
+            className="img h-60 w-full object-cover"
+          />
         ) : (
-          <p className="absolute right-0 top-0 mr-2 text-2xl font-semibold italic">
+          <p className="absolute right-0 top-0 mr-2 select-none text-2xl font-semibold italic">
             Нет фото :(
           </p>
         )}
