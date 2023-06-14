@@ -1,5 +1,6 @@
 import { PrivateRoute } from './private-route';
 import { BooksPage } from '@/pages/books-page';
+import { ProfilePage } from '@/pages/profile-page';
 import { TestPage } from '@/pages/test-page';
 import { HeaderLayout, SidebarLayout } from '@/shared/layouts';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -17,7 +18,7 @@ export const Router = () => {
             <Route path="books/genre" element={<TestPage />} />
             <Route path="books/author" element={<TestPage />} />
             <Route path="books/score" element={<TestPage />} />
-            <Route path="profile/:userId" element={<TestPage />} />
+            <Route path="profile/:userId" element={<ProfilePage />} />
           </Route>
         </Route>
       </Route>
