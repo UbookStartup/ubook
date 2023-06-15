@@ -34,7 +34,8 @@ export const Profile = () => {
       setPasswords((prev) => {
         return { ...prev, passError: true };
       });
-    } else {
+    }
+    if (!isPassChanging || formData.password === passwords.oldPass) {
       setIsPassChanging(false);
       setIsPhotoChanging(false);
       setFormData((prevData) => {
