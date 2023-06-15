@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-interface NewBook {
+interface INewBook {
   title: string;
   author: string;
   genre: string;
@@ -8,72 +8,55 @@ interface NewBook {
   image: string;
 }
 
-export const BookForm: React.FC = () => {
-  const [book, setBook] = useState<NewBook>({
-    title: '',
-    author: '',
-    genre: '',
-    rating: 0,
-    image: '',
-  });
+export const AddForm = () => {
+  const { register, handleSubmit, reset } = useForm<INewBook>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setBook({ ...book, [name]: value });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<INewBook> = (data) => {
+    reset();
   };
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
-      <div>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
+          {...(register('author'),
+          {
+            required: true,
+            placeholder: 'Имя автора',
+          })}
           type="text"
-          name="title"
-          value={book.title}
-          onChange={handleChange}
-          placeholder="Название книги"
+        />
+        <select>
+          <option selected disabled>
+            Выберите жанр
+          </option>
+        </select>
+        <input
+          {...(register('title'),
+          {
+            required: true,
+            placeholder: 'Название книги',
+          })}
+          type="text"
         />
         <input
-          type="text"
-          name="genre"
-          value={book.genre}
-          onChange={handleChange}
-          placeholder="Жанр"
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          name="author"
-          value={book.author}
-          onChange={handleChange}
-          placeholder="Автор"
+          {...(register('image'),
+          {
+            required: false,
+          })}
+          type="file"
         />
         <input
+          {...(register('rating'),
+          {
+            required: true,
+          })}
           type="range"
           min="1"
           max="5"
-          name="rating"
-          value={book.rating}
-          onChange={handleChange}
         />
-      </div>
-      <div>
-        <input
-          type="file"
-          name="image"
-          id="image"
-          value={book.image}
-          placeholder="Загрузить обложку"
-          onChange={handleChange}
-        />
-        <button className="w-80 bg-gray-200 py-2 font-semibold" type="submit">
-          Добавить книгу
-        </button>
-      </div>
-    </form>
+        <button>Send</button>
+      </form>
+    </div>
   );
 };
