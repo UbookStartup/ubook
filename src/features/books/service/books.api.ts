@@ -10,7 +10,7 @@ const bookApi = globalApi.injectEndpoints({
       providesTags: () => ['UserBooks'],
     }),
 
-    updateFavoritesBook: builder.mutation<IBook, IBook>({
+    updateBook: builder.mutation<IBook, IBook>({
       query: (book) => ({
         url: `/userBook/${book.id}`,
         method: 'PUT',
@@ -21,5 +21,4 @@ const bookApi = globalApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUserBookQuery, useUpdateFavoritesBookMutation } =
-  bookApi;
+export const { useGetAllUserBookQuery, useUpdateBookMutation } = bookApi;
