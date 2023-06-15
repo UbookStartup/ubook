@@ -1,3 +1,5 @@
+import { IBook } from '../lib/interfaces/IBook';
+import { useUpdateFavoritesBookMutation } from '../service/books.api';
 import {
   Button,
   Tooltip,
@@ -5,32 +7,25 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui';
-import { trimLine } from '@/shared/utils';
+import { convertDate, trimLine } from '@/shared/utils';
 import { Heart, Pencil } from 'lucide-react';
 import { FC, useState } from 'react';
 
 interface BookCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'id'> {
-  id: number;
-  title: string;
-  author: string;
-  image?: string;
-  scores: number;
-  addDate: string;
-  inFavorites?: boolean;
+  book: IBook;
 }
 
-export const BookCard: FC<BookCardProps> = ({
-  title,
-  id,
-  author,
-  image,
-  scores,
-  addDate,
-  inFavorites = false,
-  ...props
-}) => {
+export const BookCard: FC<BookCardProps> = ({ book, ...props }) => {
+  const { image, title, scores, author, addDate, inFavorites } = book;
+
   const [isFavorite, setIsFavorite] = useState(inFavorites);
+  const [updateBook] = useUpdateFavoritesBookMutation();
+
+  const addToFavorite = () => {
+    setIsFavorite(!isFavorite);
+    updateBook({ ...book, inFavorites: !book.inFavorites });
+  };
 
   return (
     <div {...props} className="flex w-60 shrink-0 flex-col gap-4">
@@ -42,7 +37,7 @@ export const BookCard: FC<BookCardProps> = ({
             className="img h-72 w-full object-cover"
           />
         ) : (
-          <p className="absolute right-0 top-0 mr-2 select-none text-2xl font-semibold italic">
+          <p className="absolute right-0 top-0 mr-2 select-none text-2xl font-semibold italic opacity-30">
             Нет фото :(
           </p>
         )}
@@ -75,7 +70,7 @@ export const BookCard: FC<BookCardProps> = ({
             className={`h-fit p-2 hover:bg-accent-foreground/10 ${
               isFavorite ? 'text-red-600' : 'text-accent-foreground/30'
             }`}
-            onClick={() => setIsFavorite(!isFavorite)}
+            onClick={addToFavorite}
           >
             <Heart className="h-5 w-5" />
           </Button>
@@ -99,7 +94,9 @@ export const BookCard: FC<BookCardProps> = ({
         <small className="text-sm font-medium leading-none">
           Дата добавления
         </small>
-        <small className="text-sm font-medium leading-none">{addDate}</small>
+        <small className="text-sm font-medium leading-none">
+          {convertDate(addDate)}
+        </small>
       </div>
     </div>
   );

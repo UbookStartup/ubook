@@ -4,6 +4,6 @@ export interface IBook {
   author: string;
   image: string;
   scores: number;
-  addDate: string;
+  addDate: number;
   inFavorites: boolean;
 }
