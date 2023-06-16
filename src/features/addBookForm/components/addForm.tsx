@@ -9,10 +9,10 @@ interface INewBook {
 }
 
 export const AddForm = () => {
-  const { register, handleSubmit, reset } = useForm<INewBook>();
+  const { register, handleSubmit } = useForm<INewBook>();
 
-  const onSubmit: SubmitHandler<INewBook> = () => {
-    reset();
+  const onSubmit: SubmitHandler<INewBook> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -23,6 +23,7 @@ export const AddForm = () => {
       >
         <div className="flex justify-between">
           <input
+            className="p-2 dark:bg-black dark:text-white"
             {...(register('title'),
             {
               required: true,
@@ -30,7 +31,7 @@ export const AddForm = () => {
             })}
             type="text"
           />
-          <select>
+          <select className="p-2 dark:bg-black dark:text-white">
             <option selected disabled>
               Выберите жанр
             </option>
@@ -38,10 +39,11 @@ export const AddForm = () => {
         </div>
         <div className="flex justify-between">
           <input
+            className="p-2 dark:bg-black dark:text-white"
             {...(register('author'),
             {
               required: true,
-              placeholder: 'Имя автора',
+              placeholder: 'Автор',
             })}
             type="text"
           />
@@ -62,8 +64,10 @@ export const AddForm = () => {
               required: false,
             })}
             type="file"
+            name="file"
+            id="file"
           />
-          <button className="w-80 bg-gray-200 py-4 font-bold">
+          <button className="w-80 bg-gray-200 py-4 font-bold dark:bg-black dark:text-white">
             Добавить книгу
           </button>
         </div>
