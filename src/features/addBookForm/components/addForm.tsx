@@ -11,7 +11,7 @@ interface INewBook {
 export const AddForm = () => {
   const { register, handleSubmit, reset } = useForm<INewBook>();
 
-  const onSubmit: SubmitHandler<INewBook> = (data) => {
+  const onSubmit: SubmitHandler<INewBook> = () => {
     reset();
   };
 
