@@ -93,7 +93,7 @@ export const Profile = () => {
                 })}
                 className={inputClass}
               />
-              <p style={inputErrorStyle}>{errors.email?.message}</p>
+              <p style={inputErrorStyle}>{errors.email?.message?.toString()}</p>
             </div>
             <div className="relative grid grid-cols-[140px_1fr] items-center">
               <span>Имя</span>
@@ -103,7 +103,7 @@ export const Profile = () => {
                 })}
                 className={inputClass}
               />
-              <p style={inputErrorStyle}>{errors.name?.message}</p>
+              <p style={inputErrorStyle}>{errors.name?.message?.toString()}</p>
             </div>
             <div className="relative grid grid-cols-[140px_1fr] items-center">
               <span>Фамилия</span>
@@ -113,7 +113,9 @@ export const Profile = () => {
                 })}
                 className={inputClass}
               />
-              <p style={inputErrorStyle}>{errors.surname?.message}</p>
+              <p style={inputErrorStyle}>
+                {errors.surname?.message?.toString()}
+              </p>
             </div>
             {!isPassChanging && (
               <Pass
@@ -150,7 +152,9 @@ export const Profile = () => {
                     }
                     className={inputClass}
                   />
-                  <p style={inputErrorStyle}>{errors.surname?.message}</p>
+                  <p style={inputErrorStyle}>
+                    {errors.surname?.message?.toString()}
+                  </p>
                 </div>
                 {passwords.passError && (
                   <div
