@@ -16,6 +16,12 @@ export const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    changePassword: (state, action) => {
+      return {
+        ...state,
+        password: action.payload,
+      };
+    },
     changeData: (state, action: PayloadAction<IUser>) => {
       return {
         ...state,
@@ -23,10 +29,9 @@ export const user = createSlice({
         surname: action.payload.surname || state.surname,
         email: action.payload.email || state.email,
         imageUrl: action.payload.imageUrl || state.imageUrl,
-        password: action.payload.password || state.password,
       };
     },
   },
 });
 
-export const { changeData } = user.actions;
+export const { changeData, changePassword } = user.actions;
