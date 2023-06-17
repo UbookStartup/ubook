@@ -1,7 +1,7 @@
-import { IBook } from '../lib/interfaces/IBook';
 import { globalApi } from '@/shared/services/globalApi';
+import { IBook } from '../lib/interfaces/IBook';
 
-const bookApi = globalApi.injectEndpoints({
+const booksApi = globalApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllUserBook: builder.query<IBook[], string>({
       query: (filter) => ({
@@ -10,15 +10,18 @@ const bookApi = globalApi.injectEndpoints({
       providesTags: () => ['UserBooks'],
     }),
 
-    updateBook: builder.mutation<IBook, IBook>({
+    updateBook: builder.mutation<IBook, Partial<IBook>>({
       query: (book) => ({
         url: `/userBook/${book.id}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: book,
       }),
-      invalidatesTags: ['UserBooks'],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Book', id: arg.id },
+        'UserBooks',
+      ],
     }),
   }),
 });
 
-export const { useGetAllUserBookQuery, useUpdateBookMutation } = bookApi;
+export const { useGetAllUserBookQuery, useUpdateBookMutation } = booksApi;

@@ -1,13 +1,20 @@
+import { Separator, Skeleton } from '@/shared/components';
+import { useAppDispatch } from '@/shared/hooks/redux';
+import { generateKey } from '@/shared/utils';
+import { useEffect, useState } from 'react';
+import { setBooks } from '../context/booksSlice';
 import { useGetAllUserBookQuery } from '../service/books.api';
 import { BookCard } from './book-card';
 import { BooksHeader } from './books-header';
-import { Separator, Skeleton } from '@/shared/components';
-import { generateKey } from '@/shared/utils';
-import { useState } from 'react';
 
 export const Books = () => {
   const [filter, setFilter] = useState('');
-  const { data = [], isLoading } = useGetAllUserBookQuery(filter);
+  const { data = [], isLoading, isSuccess } = useGetAllUserBookQuery(filter);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isSuccess) dispatch(setBooks(data));
+  }, [data, dispatch, isSuccess]);
 
   return (
     <div className="flex flex-col gap-4">
