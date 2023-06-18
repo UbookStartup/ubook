@@ -9,7 +9,11 @@ import { BooksHeader } from './books-header';
 
 export const Books = () => {
   const [filter, setFilter] = useState('');
-  const { data = [], isLoading, isSuccess } = useGetAllUserBookQuery(filter);
+  const {
+    data = [],
+    isLoading,
+    isSuccess,
+  } = useGetAllUserBookQuery(filter, { refetchOnMountOrArgChange: true });
   const dispatch = useAppDispatch();
 
   useEffect(() => {

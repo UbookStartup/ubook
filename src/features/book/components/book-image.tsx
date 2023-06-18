@@ -1,10 +1,9 @@
 import { Button } from '@/shared/components';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
+import { BookContext } from './book';
 
-export const BookImage: FC<{ image: string; title: string }> = ({
-  image,
-  title,
-}) => {
+export const BookImage: FC = () => {
+  const { image, title } = useContext(BookContext);
   return (
     <div className="relative h-96 w-72 shrink-0 bg-secondary-foreground/20">
       {image ? (

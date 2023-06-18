@@ -8,20 +8,19 @@ const booksApi = globalApi.injectEndpoints({
         url: `/userBook${filter}`,
       }),
       providesTags: () => ['UserBooks'],
+      keepUnusedDataFor: 0,
     }),
 
-    updateBook: builder.mutation<IBook, Partial<IBook>>({
+    updateBookOnBooksPage: builder.mutation<IBook, Partial<IBook>>({
       query: (book) => ({
         url: `/userBook/${book.id}`,
         method: 'PATCH',
         body: book,
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Book', id: arg.id },
-        'UserBooks',
-      ],
+      invalidatesTags: (_result, _error, arg) => [{ type: 'Book', id: arg.id }],
     }),
   }),
 });
 
-export const { useGetAllUserBookQuery, useUpdateBookMutation } = booksApi;
+export const { useGetAllUserBookQuery, useUpdateBookOnBooksPageMutation } =
+  booksApi;

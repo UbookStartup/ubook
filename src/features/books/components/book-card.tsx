@@ -7,10 +7,10 @@ import {
 } from '@/shared/components/ui';
 import { convertDate, trimLine } from '@/shared/utils';
 import { Heart, MousePointerClick } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IBook } from '../lib/interfaces/IBook';
-import { useUpdateBookMutation } from '../service/books.api';
+import { useUpdateBookOnBooksPageMutation } from '../service/books.api';
 
 interface BookCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'id'> {
@@ -20,11 +20,11 @@ interface BookCardProps
 export const BookCard: FC<BookCardProps> = ({ book, ...props }) => {
   const { id, image, title, scores, author, addDate, inFavorites } = book;
 
-  // const [isFavorite, setIsFavorite] = useState(inFavorites);
-  const [updateBook] = useUpdateBookMutation();
+  const [isFavorite, setIsFavorite] = useState(inFavorites);
+  const [updateBook] = useUpdateBookOnBooksPageMutation();
 
   const addToFavorite = () => {
-    // setIsFavorite(!isFavorite);
+    setIsFavorite(!isFavorite);
     updateBook({ ...book, inFavorites: !book.inFavorites });
   };
 
@@ -77,18 +77,12 @@ export const BookCard: FC<BookCardProps> = ({ book, ...props }) => {
           <Button
             variant="textWithoutHover"
             className={`h-fit p-2 hover:bg-accent-foreground/10 ${
-              inFavorites ? 'text-red-600' : 'text-accent-foreground/30'
+              isFavorite ? 'text-red-600' : 'text-accent-foreground/30'
             }`}
             onClick={addToFavorite}
           >
             <Heart className="h-5 w-5" />
           </Button>
-          {/* <Button
-            variant="text"
-            className="h-fit p-2 text-accent-foreground/30 hover:bg-accent-foreground/10"
-          >
-            <Pencil className="h-5 w-5" />
-          </Button> */}
         </div>
       </div>
 

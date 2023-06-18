@@ -7,9 +7,17 @@ const bookApi = globalApi.injectEndpoints({
       query: (id) => ({
         url: `/userBook/${id}`,
       }),
-      providesTags: (result, error, arg) => [{ type: 'Book', id: arg }],
+      providesTags: (_r, _e, arg) => [{ type: 'Book', id: arg }],
+    }),
+    updateBook: builder.mutation<IBook, Partial<IBook>>({
+      query: (book) => ({
+        url: `/userBook/${book.id}`,
+        method: 'PATCH',
+        body: book,
+      }),
+      invalidatesTags: () => ['UserBooks'],
     }),
   }),
 });
 
-export const { useGetBookByIdQuery } = bookApi;
+export const { useGetBookByIdQuery, useUpdateBookMutation } = bookApi;
