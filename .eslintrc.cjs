@@ -30,6 +30,7 @@ module.exports = {
     'prefer-destructuring': 0,
     'import/extensions': 0,
     'react/require-default-props': 0,
+    'import/no-cycle': 0,
     'react/jsx-no-bind': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'react/function-component-definition': 0,
