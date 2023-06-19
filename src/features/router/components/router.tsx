@@ -1,9 +1,10 @@
+import { AddForm } from '@/features/addBookForm';
+import { BooksPage } from '@/pages/books-page';
 import { ProfilePage } from '@/pages/profile-page';
-import { PrivateRoute } from './private-route';
 import { TestPage } from '@/pages/test-page';
 import { HeaderLayout, SidebarLayout } from '@/shared/layouts';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AddForm } from '@/features/addBookForm';
+import { PrivateRoute } from './private-route';
 
 export const Router = () => {
   return (
@@ -13,7 +14,7 @@ export const Router = () => {
         <Route path="/" element={<HeaderLayout />}>
           <Route path="login" element={<TestPage />} />
           <Route path="/" element={<SidebarLayout />}>
-            <Route path="books" element={<TestPage />} />
+            <Route path="books" element={<BooksPage />} />
             <Route path="books/add_book" element={<AddForm />} />
             <Route path="books/genre" element={<TestPage />} />
             <Route path="books/author" element={<TestPage />} />
