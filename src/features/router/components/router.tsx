@@ -1,3 +1,5 @@
+import { AddFormPage } from '@/pages/add-book';
+import { BookPage } from '@/pages/book-page';
 import { BooksPage } from '@/pages/books-page';
 import { ProfilePage } from '@/pages/profile-page';
 import { TestPage } from '@/pages/test-page';
@@ -15,7 +17,7 @@ export const Router = () => {
           <Route path="/" element={<SidebarLayout />}>
             <Route path="books" element={<BooksPage />} />
             <Route path="book/:bookId" element={<BookPage />} />
-            <Route path="books/add_book" element={<AddForm />} />
+            <Route path="books/add_book" element={<AddFormPage />} />
             <Route path="books/genre" element={<TestPage />} />
             <Route path="books/author" element={<TestPage />} />
             <Route path="books/score" element={<TestPage />} />
