@@ -1,13 +1,22 @@
 import { Input } from '@/shared/components';
+import { Eye, EyeOff } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import styles from '../assets/auth.module.css';
+import { useState } from 'react';
 
 export const Auth = () => {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
   const navigate = useNavigate();
 
+  const [typePassword, setTypePassword] = useState('password');
+
+  const changeTypePassword = (type: string) => {
+    setTypePassword(type);
+  };
+
   return (
-    <div className="mt-20 flex justify-center">
+    <div className="mt-28 flex justify-center">
       <div className="flex flex-col">
         <div className="mb-10 flex cursor-pointer gap-20">
           <button
@@ -23,14 +32,25 @@ export const Auth = () => {
             Уже есть
           </button>
         </div>
-        <div className="mb-20 flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-5">
           {!isLogin ? (
-            <Input type="email" placeholder="Почта" className="w-64 border" />
+            <Input type="email" placeholder="Почта" className="border" />
           ) : (
             ''
           )}
-          <Input type="text" placeholder="Логин" className="w-64 border" />
-          <Input type="password" placeholder="Пароль" className="w-64 border" />
+          <Input type="text" placeholder="Логин" className="border" />
+          <Input type={typePassword} placeholder="Пароль" className="border" />
+          {typePassword === 'password' ? (
+            <Eye
+              onClick={() => changeTypePassword('text')}
+              className={styles.eye}
+            />
+          ) : (
+            <EyeOff
+              onClick={() => changeTypePassword('password')}
+              className={styles.eye}
+            />
+          )}
         </div>
         <button className="rounded border-2 p-2">
           {isLogin ? 'Войти' : 'Создать аккаунт'}
