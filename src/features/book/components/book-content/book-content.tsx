@@ -4,14 +4,17 @@ import { Heart } from 'lucide-react';
 import { useContext, useEffect, useState } from 'react';
 import { useUpdateBookMutation } from '../../service/book.api';
 import { BookContext } from '../book';
+import { Rating } from '../rating';
 
 export const BookContent = () => {
   const [updateBook] = useUpdateBookMutation();
+  const { scores } = useContext(BookContext);
 
   return (
     <div className="space-y-4">
       <BookContent.Date />
       <BookContent.Favorites />
+      <Rating scores={scores!} />
     </div>
   );
 };
