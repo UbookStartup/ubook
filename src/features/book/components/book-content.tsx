@@ -7,16 +7,11 @@ import { BookContext } from './book';
 import { Rating } from './rating';
 
 export const BookContent = () => {
-  const [updateBook] = useUpdateBookMutation();
-
-  const { id, scores } = useContext(BookContext);
-  const [rating, setRating] = useState(scores);
-
   return (
     <div className="space-y-4">
       <BookContent.Date />
       <BookContent.Favorites />
-      <Rating rating={rating!} setRating={setRating} />
+      <BookContent.Scores />
     </div>
   );
 };
@@ -56,5 +51,27 @@ BookContent.Favorites = function BookContentFavorites(): JSX.Element {
     >
       <Heart className="mr-3 h-5 w-5" />
     </Button>
+  );
+};
+
+BookContent.Scores = function BookContentScores(): JSX.Element {
+  const [updateBook] = useUpdateBookMutation();
+
+  const { id, scores } = useContext(BookContext);
+  const [rating, setRating] = useState(scores);
+
+  useEffect(() => {
+    setRating(scores);
+  }, [scores]);
+
+  const updateRating = (initialRating: number) => {
+    setRating(initialRating);
+    updateBook({ id, scores: initialRating });
+  };
+  return (
+    <div>
+      <small>Оценка</small>
+      <Rating rating={rating!} setRating={updateRating} />
+    </div>
   );
 };

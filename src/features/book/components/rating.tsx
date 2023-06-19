@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useState } from 'react';
+import { generateKey } from '@/shared/utils';
+import { FC, Fragment, useState } from 'react';
 /* eslint-disable react/jsx-key */
 interface RatingProps {
   rating: number;
-  setRating: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setRating: (initialRating: number) => void;
 }
 
 export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
@@ -22,7 +23,7 @@ export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
     <div className="flex items-center gap-4">
       <div className="flex items-center">
         {[...new Array(5)].map((_, i) => (
-          <>
+          <Fragment key={generateKey('rate')}>
             <input
               type="button"
               className={`h-4 w-4 rounded-full transition-all ${
@@ -43,7 +44,7 @@ export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
                 onMouseLeave={() => setHoverRating(0)}
               />
             )}
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
