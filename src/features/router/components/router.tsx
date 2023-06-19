@@ -3,6 +3,7 @@ import { PrivateRoute } from './private-route';
 import { TestPage } from '@/pages/test-page';
 import { HeaderLayout, SidebarLayout } from '@/shared/layouts';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Auth } from '@/features/auth';
 
 export const Router = () => {
   return (
@@ -10,7 +11,8 @@ export const Router = () => {
       <Route path="" element={<Navigate to="/books" />} />
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<HeaderLayout />}>
-          <Route path="login" element={<TestPage />} />
+          <Route path="login" element={<Auth />} />
+          <Route path="registration" element={<Auth />} />
           <Route path="/" element={<SidebarLayout />}>
             <Route path="books" element={<TestPage />} />
             <Route path="books/add_book" element={<TestPage />} />

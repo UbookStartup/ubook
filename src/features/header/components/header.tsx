@@ -13,7 +13,7 @@ export const Header = () => {
         <p className="mr-1 w-1/6 select-none text-2xl font-semibold first-letter:font-bold first-letter:text-violet-600">
           Ubook
         </p>
-        {!(location === '/login') && (
+        {!(location === '/login' || location === '/registration') && (
           <Input
             className="max-w-xl rounded-none border-b border-input"
             placeholder="Введите название или автора..."
