@@ -8,8 +8,8 @@ import { BookContext } from './book';
 export const BookContent = () => {
   return (
     <div className="space-y-4">
-      <BookContent.Date />
       <BookContent.Favorites />
+      <BookContent.Date />
       <BookContent.Scores />
     </div>
   );
@@ -18,9 +18,9 @@ export const BookContent = () => {
 BookContent.Date = function BookContentDate(): JSX.Element {
   const { addDate } = useContext(BookContext);
   return (
-    <p className="text-lg">
-      <span className="font-light">Дата добавления:</span>
-      <span className="font-semibold"> {convertDate(addDate)}</span>
+    <p>
+      <p className="mb-1.5 font-light">Дата добавления:</p>
+      <span className="text-lg font-semibold"> {convertDate(addDate)}</span>
     </p>
   );
 };
@@ -69,8 +69,11 @@ BookContent.Scores = function BookContentScores(): JSX.Element {
   };
   return (
     <div>
-      <small>Оценка</small>
-      <Rating rating={rating!} setRating={updateRating} />
+      <p className="mb-1.5 font-light">Оценка:</p>
+      <div className="flex">
+        <Rating rating={rating!} setRating={updateRating} />
+        <span className="ml-2">{rating}/5</span>
+      </div>
     </div>
   );
 };

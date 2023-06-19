@@ -21,13 +21,13 @@ export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex items-center">
-        {[...new Array(5)].map((_, i) => (
-          <Fragment key={generateKey('rate')}>
+    <div className="flex items-center">
+      {[...new Array(5)].map((_, i) => (
+        <Fragment key={generateKey('rate')}>
+          <div className="group relative h-4 w-4">
             <input
               type="button"
-              className={`h-4 w-4 rounded-full transition-all ${
+              className={`h-full w-full rounded-full transition-all ${
                 i > rating - 1
                   ? 'bg-primary/30 hover:bg-primary/50'
                   : 'bg-primary'
@@ -36,18 +36,21 @@ export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
               onMouseEnter={() => setHoverRating(i + 1)}
               onMouseLeave={() => setHoverRating(0)}
             />
-            {i !== 4 && (
-              <div
-                className={`h-px w-7 transition-all ${
-                  i > rating - 2 ? 'bg-primary/30' : 'bg-primary'
-                } ${getColor(i + 1)}`}
-                onMouseEnter={() => setHoverRating(i + 1)}
-                onMouseLeave={() => setHoverRating(0)}
-              />
-            )}
-          </Fragment>
-        ))}
-      </div>
+            <span className="invisible block text-xs opacity-0 transition-opacity group-hover:visible group-hover:opacity-60">
+              {i + 1}
+            </span>
+          </div>
+          {i !== 4 && (
+            <div
+              className={`h-px w-7 transition-all ${
+                i > rating - 2 ? 'bg-primary/30' : 'bg-primary'
+              } ${getColor(i + 1)}`}
+              onMouseEnter={() => setHoverRating(i + 1)}
+              onMouseLeave={() => setHoverRating(0)}
+            />
+          )}
+        </Fragment>
+      ))}
     </div>
   );
 };
