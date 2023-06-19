@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface INewBook {
@@ -14,7 +15,6 @@ export const AddForm = () => {
   const onSubmit: SubmitHandler<INewBook> = (data) => {
     console.log(data);
   };
-
   return (
     <div>
       <form
@@ -40,11 +40,7 @@ export const AddForm = () => {
         <div className="flex justify-between">
           <input
             className="p-2 dark:bg-black dark:text-white"
-            {...(register('author'),
-            {
-              required: true,
-              placeholder: 'Автор',
-            })}
+            {...register('author')}
             type="text"
           />
           <input
