@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBook } from '../hooks/useBook';
-import { BookContent } from './book-content/book-content';
+import { BookContent } from './book-content';
 import { BookHeader } from './book-header';
 import { BookImage } from './book-image';
 

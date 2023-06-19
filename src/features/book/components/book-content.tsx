@@ -2,19 +2,21 @@ import { Button } from '@/shared/components';
 import { convertDate } from '@/shared/utils';
 import { Heart } from 'lucide-react';
 import { useContext, useEffect, useState } from 'react';
-import { useUpdateBookMutation } from '../../service/book.api';
-import { BookContext } from '../book';
-import { Rating } from '../rating';
+import { useUpdateBookMutation } from '../service/book.api';
+import { BookContext } from './book';
+import { Rating } from './rating';
 
 export const BookContent = () => {
   const [updateBook] = useUpdateBookMutation();
-  const { scores } = useContext(BookContext);
+
+  const { id, scores } = useContext(BookContext);
+  const [rating, setRating] = useState(scores);
 
   return (
     <div className="space-y-4">
       <BookContent.Date />
       <BookContent.Favorites />
-      <Rating scores={scores!} />
+      <Rating rating={rating!} setRating={setRating} />
     </div>
   );
 };

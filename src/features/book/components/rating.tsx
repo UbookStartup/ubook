@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react';
+import { FC, useState } from 'react';
 /* eslint-disable react/jsx-key */
-export const Rating = ({ scores }: { scores: number }) => {
-  const [rating, setRating] = useState(scores);
-  const [hoverRating, setHoverRating] = useState(0);
+interface RatingProps {
+  rating: number;
+  setRating: React.Dispatch<React.SetStateAction<number | undefined>>;
+}
 
+export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
+  const [hoverRating, setHoverRating] = useState(0);
   const getColor = (i: number) => {
     if (hoverRating >= i + 1 && i >= rating) {
       return 'bg-primary/50';
@@ -33,7 +36,7 @@ export const Rating = ({ scores }: { scores: number }) => {
             />
             {i !== 4 && (
               <div
-                className={`h-px w-6 transition-all ${
+                className={`h-px w-7 transition-all ${
                   i > rating - 2 ? 'bg-primary/30' : 'bg-primary'
                 } ${getColor(i + 1)}`}
                 onMouseEnter={() => setHoverRating(i + 1)}
