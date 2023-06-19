@@ -1,6 +1,6 @@
-import { FilterValue } from '../lib/FilterValue';
 import { Button } from '@/shared/components';
 import { FC } from 'react';
+import { FilterValue } from '../lib/FilterValue';
 
 interface BooksHeaderProps {
   totalBooks: number;
@@ -28,6 +28,13 @@ export const BooksHeader: FC<BooksHeaderProps> = ({
         <h2 className="mb-0.5 text-sm font-normal">Всего книг: {totalBooks}</h2>
       </div>
       <div>
+        <Button
+          variant="text"
+          className="font-semibold text-accent-foreground/20"
+          onClick={() => setFilter('')}
+        >
+          Сбросить фильтры
+        </Button>
         <Button
           variant="text"
           className={`font-semibold ${
