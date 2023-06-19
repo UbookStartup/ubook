@@ -1,8 +1,8 @@
 import { Input } from '@/shared/components';
-import { Eye, EyeOff } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../assets/auth.module.css';
 import { useState } from 'react';
+import { ViewPassword } from './view-password';
 
 export const Auth = () => {
   const location = useLocation();
@@ -10,10 +10,6 @@ export const Auth = () => {
   const navigate = useNavigate();
 
   const [typePassword, setTypePassword] = useState('password');
-
-  const changeTypePassword = (type: string) => {
-    setTypePassword(type);
-  };
 
   return (
     <div className="mt-28 flex justify-center">
@@ -40,17 +36,11 @@ export const Auth = () => {
           )}
           <Input type="text" placeholder="Логин" className="border" />
           <Input type={typePassword} placeholder="Пароль" className="border" />
-          {typePassword === 'password' ? (
-            <Eye
-              onClick={() => changeTypePassword('text')}
-              className={styles.eye}
-            />
-          ) : (
-            <EyeOff
-              onClick={() => changeTypePassword('password')}
-              className={styles.eye}
-            />
-          )}
+          <ViewPassword
+            typePassword={typePassword}
+            setTypePassword={setTypePassword}
+            styles={styles}
+          />
         </div>
         <button className="rounded border-2 p-2">
           {isLogin ? 'Войти' : 'Создать аккаунт'}
