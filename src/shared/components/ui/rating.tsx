@@ -9,6 +9,7 @@ interface RatingProps {
 
 export const Rating: FC<RatingProps> = ({ rating, setRating }) => {
   const [hoverRating, setHoverRating] = useState(0);
+
   const getColor = (i: number) => {
     if (hoverRating >= i + 1 && i >= rating) {
       return 'bg-primary/50';

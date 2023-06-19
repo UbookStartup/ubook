@@ -1,10 +1,9 @@
-import { Button } from '@/shared/components';
+import { Button, Rating } from '@/shared/components';
 import { convertDate } from '@/shared/utils';
 import { Heart } from 'lucide-react';
 import { useContext, useEffect, useState } from 'react';
 import { useUpdateBookMutation } from '../service/book.api';
 import { BookContext } from './book';
-import { Rating } from './rating';
 
 export const BookContent = () => {
   return (
