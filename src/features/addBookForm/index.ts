@@ -1,1 +1,1 @@
-export * from './components/addForm';
+export * from './components/add-form.tsx';
