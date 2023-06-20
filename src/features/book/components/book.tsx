@@ -9,30 +9,52 @@ import { BookContent } from './book-content';
 import { BookHeader } from './book-header';
 import { BookImage } from './book-image';
 
-export const BookContext = createContext<Partial<IBook>>({});
+const initialContextValue: IBook = {
+  id: 0,
+  title: '',
+  author: '',
+  addDate: 0,
+  image: '',
+  scores: 0,
+  inFavorites: false,
+};
+
+export const BookContext = createContext<IBook>(initialContextValue);
 
 export const Book = () => {
   const { data: book, isLoading } = useBook();
 
-  return (
-    <BookContext.Provider value={book!}>
+  if (isLoading)
+    return (
       <div className="flex flex-col gap-4">
         <Book.PageHeader />
         <Separator />
-        {isLoading ? (
-          <Book.Loader />
-        ) : book ? (
-          <div className="flex gap-4">
-            <BookImage />
-            <div className="flex w-full flex-col gap-4">
-              <BookHeader />
-              <Separator className="opacity-50" />
-              <BookContent />
-            </div>
+        <Book.Loader />
+      </div>
+    );
+
+  if (!book)
+    return (
+      <div className="flex flex-col gap-4">
+        <Book.PageHeader />
+        <Separator />
+        <div>Книга не найдена :(</div>
+      </div>
+    );
+
+  return (
+    <BookContext.Provider value={book}>
+      <div className="flex flex-col gap-4">
+        <Book.PageHeader />
+        <Separator />
+        <div className="flex gap-4">
+          <BookImage />
+          <div className="flex w-full flex-col gap-4">
+            <BookHeader />
+            <Separator className="opacity-50" />
+            <BookContent />
           </div>
-        ) : (
-          <div>Книга не найдена :(</div>
-        )}
+        </div>
       </div>
     </BookContext.Provider>
   );

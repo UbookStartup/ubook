@@ -8,6 +8,7 @@ const bookApi = globalApi.injectEndpoints({
         url: `/userBook/${id}`,
       }),
       providesTags: (_r, _e, arg) => [{ type: 'Book', id: arg }],
+      keepUnusedDataFor: 0,
     }),
     updateBook: builder.mutation<IBook, Partial<IBook>>({
       query: (book) => ({

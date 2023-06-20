@@ -1,7 +1,7 @@
 import { Button, Rating } from '@/shared/components';
 import { convertDate } from '@/shared/utils';
 import { Heart } from 'lucide-react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useUpdateBookMutation } from '../service/book.api';
 import { BookContext } from './book';
 
@@ -30,10 +30,6 @@ BookContent.Favorites = function BookContentFavorites(): JSX.Element {
   const [isFavorite, setIsFavorite] = useState(inFavorites);
   const [updateBook] = useUpdateBookMutation();
 
-  useEffect(() => {
-    setIsFavorite(inFavorites);
-  }, [inFavorites]);
-
   return (
     <Button
       size="lg"
@@ -59,10 +55,6 @@ BookContent.Scores = function BookContentScores(): JSX.Element {
   const { id, scores } = useContext(BookContext);
   const [rating, setRating] = useState(scores);
 
-  useEffect(() => {
-    setRating(scores);
-  }, [scores]);
-
   const updateRating = (initialRating: number) => {
     setRating(initialRating);
     updateBook({ id, scores: initialRating });
@@ -71,7 +63,7 @@ BookContent.Scores = function BookContentScores(): JSX.Element {
     <div>
       <p className="mb-1.5 font-light">Оценка:</p>
       <div className="flex">
-        <Rating rating={rating!} setRating={updateRating} />
+        <Rating rating={rating} setRating={updateRating} />
         <span className="ml-2">{rating}/5</span>
       </div>
     </div>

@@ -1,5 +1,3 @@
-import { sidebarButtons, sidebarButtonsSearch } from '../data/sidebarButtons';
-import { SidebarButton } from './sidebar-button';
 import {
   Collapsible,
   CollapsibleContent,
@@ -7,6 +5,8 @@ import {
 } from '@/shared/components';
 import { generateKey } from '@/shared/utils';
 import { useState } from 'react';
+import { sidebarButtons, sidebarButtonsSearch } from '../data/sidebarButtons';
+import { SidebarButton } from './sidebar-button';
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
