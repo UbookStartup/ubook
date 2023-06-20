@@ -5,6 +5,7 @@ import { IPass } from '@/shared/lib/IPass';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { ShowPass } from './ShowPass';
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
@@ -71,16 +72,21 @@ export const Profile = () => {
         </div>
         <form
           onSubmit={handleSubmit((data) => {
-            if (data.password !== passwords.oldPass) {
-              setPasswords((prev) => {
-                return { ...prev, passError: true };
-              });
-            }
-            if (!isPassChanging || data.password === passwords.oldPass) {
-              setIsPassChanging(false);
-              setIsPhotoChanging(false);
-              dispatch(changePassword(passwords.newPass));
-              dispatch(changeData(data));
+            if (
+              passwords.oldPass.length !== 0 &&
+              passwords.newPass.length !== 0
+            ) {
+              if (data.password !== passwords.oldPass) {
+                setPasswords((prev) => {
+                  return { ...prev, passError: true };
+                });
+              }
+              if (!isPassChanging || data.password === passwords.oldPass) {
+                setIsPassChanging(false);
+                setIsPhotoChanging(false);
+                dispatch(changePassword(passwords.newPass));
+                dispatch(changeData(data));
+              }
             }
           })}
         >
@@ -125,37 +131,16 @@ export const Profile = () => {
             )}
             {isPassChanging && (
               <>
-                <div className="relative grid grid-cols-[140px_1fr] items-center">
-                  <span>Старый пароль</span>
-                  <Input
-                    type="password"
-                    name="oldPass"
-                    value={passwords.oldPass}
-                    onChange={(event) =>
-                      setPasswords((prev) => {
-                        return { ...prev, oldPass: event.target.value };
-                      })
-                    }
-                    className={inputClass}
-                  />
-                </div>
-                <div className="relative grid grid-cols-[140px_1fr] items-center">
-                  <span>Новый пароль</span>
-                  <Input
-                    type="password"
-                    name="newPass"
-                    value={passwords.newPass}
-                    onChange={(event) =>
-                      setPasswords((prev) => {
-                        return { ...prev, newPass: event.target.value };
-                      })
-                    }
-                    className={inputClass}
-                  />
-                  <p style={inputErrorStyle}>
-                    {errors.surname?.message?.toString()}
-                  </p>
-                </div>
+                <ShowPass
+                  pass="old"
+                  passwords={passwords}
+                  setPasswords={setPasswords}
+                />
+                <ShowPass
+                  pass="new"
+                  passwords={passwords}
+                  setPasswords={setPasswords}
+                />
                 {passwords.passError && (
                   <div
                     style={{ color: 'red', fontSize: '12px', textAlign: 'end' }}
