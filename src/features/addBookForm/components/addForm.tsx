@@ -1,73 +1,96 @@
-/* eslint-disable no-sequences */
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Button, Input, Rating, Separator } from '@/shared/components';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface INewBook {
   title: string;
   author: string;
   genre: string;
-  rating: number;
   image: string;
+  scores: number;
 }
 
 export const AddForm = () => {
-  const { register, handleSubmit } = useForm<INewBook>();
+  const [rating, setRating] = useState(0);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<INewBook>();
 
-  const onSubmit: SubmitHandler<INewBook> = (data) => {
+  const onSubmit = handleSubmit((data) => {
     console.log(data);
-  };
+    reset();
+  });
+
   return (
-    <div>
-      <form
-        className="flex flex-col gap-16 text-base"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex justify-between">
-          <input
-            className="p-2 dark:bg-black dark:text-white"
-            {...(register('title'),
-            {
-              required: true,
-              placeholder: 'Название книги',
-            })}
-            type="text"
-          />
-          <select className="p-2 dark:bg-black dark:text-white">
-            <option selected disabled>
-              Выберите жанр
-            </option>
-          </select>
-        </div>
-        <div className="flex justify-between">
-          <input
-            className="p-2 dark:bg-black dark:text-white"
-            {...register('author')}
-            type="text"
-          />
-          <input
-            {...(register('rating'),
-            {
-              required: true,
-            })}
-            type="range"
-            min="1"
-            max="5"
-          />
-        </div>
-        <div className="flex justify-between">
-          <input
-            {...(register('image'),
-            {
-              required: false,
-            })}
-            type="file"
-            name="file"
-            id="file"
-          />
-          <button className="w-80 bg-gray-200 py-4 font-bold dark:bg-black dark:text-white">
+    <div className="flex flex-col gap-4">
+      <h1 className="mr-2 text-4xl font-medium">Добавление книги</h1>
+      <Separator />
+      <div className="flex justify-between">
+        <form
+          onSubmit={onSubmit}
+          className="flex w-full max-w-md flex-col gap-6"
+        >
+          <div className="space-y-1">
+            <label htmlFor="name">Название книги</label>
+            <Input
+              {...register('title', {
+                required: true,
+              })}
+              type="text"
+              id="name"
+              className="rounded-none border-b border-input"
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="name">Автор</label>
+            <Input
+              {...register('author', {
+                required: true,
+              })}
+              type="text"
+              id="name"
+              className="rounded-none border-b border-input"
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="name">Жанр</label>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Выберите жанр" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="name">Оценка</label>
+            <Rating rating={rating} setRating={setRating} />
+          </div>
+          <div>
+            <Button variant="text" type="button" className="pl-0">
+              Загрузить обложку
+            </Button>
+          </div>
+          <Button variant="secondary" className="pl-0">
             Добавить книгу
-          </button>
-        </div>
-      </form>
+          </Button>
+        </form>
+
+        <div>Form</div>
+      </div>
     </div>
   );
 };
