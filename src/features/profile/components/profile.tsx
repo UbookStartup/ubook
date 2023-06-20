@@ -73,6 +73,7 @@ export const Profile = () => {
         <form
           onSubmit={handleSubmit((data) => {
             if (
+              isPassChanging &&
               passwords.oldPass.length !== 0 &&
               passwords.newPass.length !== 0
             ) {
@@ -80,13 +81,14 @@ export const Profile = () => {
                 setPasswords((prev) => {
                   return { ...prev, passError: true };
                 });
-              }
-              if (!isPassChanging || data.password === passwords.oldPass) {
-                setIsPassChanging(false);
-                setIsPhotoChanging(false);
+              } else {
                 dispatch(changePassword(passwords.newPass));
-                dispatch(changeData(data));
+                setIsPassChanging(false);
               }
+            }
+            if (!isPassChanging) {
+              setIsPhotoChanging(false);
+              dispatch(changeData(data));
             }
           })}
         >
