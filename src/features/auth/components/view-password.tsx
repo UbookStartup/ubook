@@ -1,6 +1,16 @@
 import { Eye, EyeOff } from 'lucide-react';
 
-export const ViewPassword = ({ typePassword, setTypePassword, styles }) => {
+interface IViewPassword {
+  typePassword: string;
+  setTypePassword: React.Dispatch<React.SetStateAction<string>>;
+  styles: CSSModuleClasses;
+}
+
+export const ViewPassword = ({
+  typePassword,
+  setTypePassword,
+  styles,
+}: IViewPassword) => {
   const changeTypePassword = (type: string) => {
     setTypePassword(type);
   };

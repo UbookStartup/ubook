@@ -9,7 +9,7 @@ export const Auth = () => {
   const isLogin = location.pathname === '/login';
   const navigate = useNavigate();
 
-  const [typePassword, setTypePassword] = useState('password');
+  const [typePassword, setTypePassword] = useState<string>('password');
 
   return (
     <div className="mt-28 flex justify-center">
