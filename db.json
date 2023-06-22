@@ -91,6 +91,78 @@
       "shortDescription": "An inspiring biography of a remarkable person."
     }
   ],
-  "posts": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "users": { "name": "typicode" }
+  "userBook": [
+    {
+      "id": 1,
+      "title": "Just React!",
+      "author": "Hary Narayan",
+      "image": "https://m.media-amazon.com/images/I/510gGCm7Z8L._AC_UF1000,1000_QL80_.jpg",
+      "scores": 5,
+      "addDate": 1686836752,
+      "inFavorites": true
+    },
+    {
+      "id": 2,
+      "title": "The Road to Learn React: Your Journey to Master Plain Yet Pragmatic React.Js",
+      "author": "Robin Wieruch",
+      "image": "",
+      "scores": 5,
+      "addDate": 1186901916,
+      "inFavorites": true
+    },
+    {
+      "id": 3,
+      "title": "Clean Code",
+      "author": "Robert C Martin",
+      "image": "https://m.media-amazon.com/images/P/B001GSTOAM.01._SCLZZZZZZZ_SX500_.jpg",
+      "scores": 2,
+      "addDate": 1644624000,
+      "inFavorites": true
+    },
+    {
+      "id": 4,
+      "title": "The Mythical Man-Month: Essays on Software Engineering, Anniversary Edition",
+      "author": "Jr. Brooks, Frederick",
+      "image": "https://m.media-amazon.com/images/P/B00B8USS14.01._SCLZZZZZZZ_SX500_.jpg",
+      "scores": 2,
+      "addDate": 1462934703,
+      "inFavorites": false
+    },
+    {
+      "id": 5,
+      "title": "Pragmatic Programmer, The: Your journey to mastery, 20th Anniversary Edition 2nd Edition, Kindle Edition",
+      "author": "David Thomas",
+      "image": "https://m.media-amazon.com/images/P/B07VRS84D1.01._SCLZZZZZZZ_SX500_.jpg",
+      "scores": 5,
+      "addDate": 1091213457,
+      "inFavorites": false
+    },
+    {
+      "id": 6,
+      "title": "Code Complete: A Practical Handbook of Software Construction, Second Edition 2nd Edition",
+      "author": "Steve McConnell",
+      "image": "",
+      "scores": 1,
+      "addDate": 1321342829,
+      "inFavorites": false
+    },
+    {
+      "id": 7,
+      "title": "Art of Computer Programming",
+      "author": "Donald John Fuller",
+      "image": "",
+      "scores": 2,
+      "addDate": 1704332527,
+      "inFavorites": false
+    },
+    {
+      "id": 8,
+      "title": "PROGRAMMING PEARLS, 2ND EDITION",
+      "author": "Jon Bentley",
+      "image": "https://m.media-amazon.com/images/I/5182nSkamwL._SX367_BO1,204,203,200_.jpg",
+      "scores": 2,
+      "addDate": 1799773654,
+      "inFavorites": false
+    }
+  ]
 }

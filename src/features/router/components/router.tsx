@@ -1,8 +1,10 @@
+import { BookPage } from '@/pages/book-page';
+import { BooksPage } from '@/pages/books-page';
 import { ProfilePage } from '@/pages/profile-page';
-import { PrivateRoute } from './private-route';
 import { TestPage } from '@/pages/test-page';
 import { HeaderLayout, SidebarLayout } from '@/shared/layouts';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './private-route';
 import { Auth } from '@/features/auth';
 
 export const Router = () => {
@@ -14,7 +16,8 @@ export const Router = () => {
           <Route path="login" element={<Auth />} />
           <Route path="registration" element={<Auth />} />
           <Route path="/" element={<SidebarLayout />}>
-            <Route path="books" element={<TestPage />} />
+            <Route path="books" element={<BooksPage />} />
+            <Route path="book/:bookId" element={<BookPage />} />
             <Route path="books/add_book" element={<TestPage />} />
             <Route path="books/genre" element={<TestPage />} />
             <Route path="books/author" element={<TestPage />} />

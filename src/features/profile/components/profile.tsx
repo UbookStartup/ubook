@@ -1,11 +1,11 @@
 import { Pass } from './Pass';
+import { ProfileInput } from './ProfileInput';
 import { Button, Input } from '@/shared/components';
 import { RootState, changeData } from '@/shared/context';
 import { IUser } from '@/shared/lib';
 import { IPass } from '@/shared/lib/IPass';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProfileInput } from './ProfileInput';
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
