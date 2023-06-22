@@ -99,7 +99,7 @@
       "image": "https://m.media-amazon.com/images/I/510gGCm7Z8L._AC_UF1000,1000_QL80_.jpg",
       "scores": 5,
       "addDate": 1686836752,
-      "inFavorites": true
+      "inFavorites": false
     },
     {
       "id": 2,
@@ -162,7 +162,7 @@
       "image": "https://m.media-amazon.com/images/I/5182nSkamwL._SX367_BO1,204,203,200_.jpg",
       "scores": 5,
       "addDate": 1799773654,
-      "inFavorites": false
+      "inFavorites": true
     }
   ]
 }

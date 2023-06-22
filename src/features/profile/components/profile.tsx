@@ -1,11 +1,11 @@
 import { Pass } from './Pass';
-import { ProfileInput } from './ProfileInput';
 import { Button, Input } from '@/shared/components';
-import { RootState, changeData } from '@/shared/context';
-import { IUser } from '@/shared/lib';
+import { RootState, changeData, changePassword } from '@/shared/context';
 import { IPass } from '@/shared/lib/IPass';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { ShowPass } from './ShowPass';
 
 export const Profile = () => {
   const [isPassChanging, setIsPassChanging] = React.useState(false);
@@ -13,40 +13,38 @@ export const Profile = () => {
 
   const user = useSelector((state: RootState) => state.user);
 
-  const [formData, setFormData] = React.useState<IUser>(user);
   const [passwords, setPasswords] = React.useState<IPass>({
     oldPass: '',
     newPass: '',
     passError: false,
   });
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: user,
+  });
+
   const dispatch = useDispatch();
 
   function changePhoto() {
     setIsPhotoChanging((prevState) => !prevState);
-    setFormData((prevData) => {
-      return { ...prevData, imageUrl: '' };
-    });
-  }
-
-  function saveData() {
-    if (formData.password !== passwords.oldPass) {
-      setPasswords((prev) => {
-        return { ...prev, passError: true };
-      });
-    } else {
-      setIsPassChanging(false);
-      setIsPhotoChanging(false);
-      setFormData((prevData) => {
-        return { ...prevData, password: passwords.newPass };
-      });
-      dispatch(changeData(formData));
-    }
   }
 
   function cancelPassChange() {
     setIsPassChanging(false);
   }
+
+  const inputClass =
+    'flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+  const inputErrorStyle = {
+    gridColumn: '1/3',
+    color: 'red',
+    fontSize: '12px',
+    textAlign: 'end' as const,
+  };
 
   return (
     <div>
@@ -66,42 +64,67 @@ export const Profile = () => {
           </button>
           {isPhotoChanging && (
             <Input
-              name="imageUrl"
+              {...register('imageUrl')}
               placeholder="Вставьте URL"
               className="ml-1 mt-1 flex h-10 w-36 rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
-              value={formData.imageUrl}
-              onChange={(event) =>
-                setFormData((prevData) => {
-                  return { ...prevData, imageUrl: event.target.value };
-                })
-              }
-              autoComplete="on"
             />
           )}
         </div>
-        <div>
+        <form
+          onSubmit={handleSubmit((data) => {
+            if (
+              isPassChanging &&
+              passwords.oldPass.length !== 0 &&
+              passwords.newPass.length !== 0
+            ) {
+              if (data.password !== passwords.oldPass) {
+                setPasswords((prev) => {
+                  return { ...prev, passError: true };
+                });
+              } else {
+                dispatch(changePassword(passwords.newPass));
+                setIsPassChanging(false);
+              }
+            }
+            if (!isPassChanging) {
+              setIsPhotoChanging(false);
+              dispatch(changeData(data));
+            }
+          })}
+        >
           <div className="mb-20 flex flex-col gap-4">
-            <ProfileInput
-              name="email"
-              type="text"
-              text="Почта"
-              value={formData.email}
-              setFormData={setFormData}
-            />
-            <ProfileInput
-              name="name"
-              type="text"
-              text="Имя"
-              value={formData.name}
-              setFormData={setFormData}
-            />
-            <ProfileInput
-              name="surname"
-              type="text"
-              text="Фамилия"
-              value={formData.surname}
-              setFormData={setFormData}
-            />
+            <div className="relative grid grid-cols-[140px_1fr] items-center">
+              <span>Почта</span>
+              <Input
+                {...register('email', {
+                  required: 'Поле обязательно для заполнения',
+                })}
+                className={inputClass}
+              />
+              <p style={inputErrorStyle}>{errors.email?.message?.toString()}</p>
+            </div>
+            <div className="relative grid grid-cols-[140px_1fr] items-center">
+              <span>Имя</span>
+              <Input
+                {...register('name', {
+                  required: 'Поле обязательно для заполнения',
+                })}
+                className={inputClass}
+              />
+              <p style={inputErrorStyle}>{errors.name?.message?.toString()}</p>
+            </div>
+            <div className="relative grid grid-cols-[140px_1fr] items-center">
+              <span>Фамилия</span>
+              <Input
+                {...register('surname', {
+                  required: 'Поле обязательно для заполнения',
+                })}
+                className={inputClass}
+              />
+              <p style={inputErrorStyle}>
+                {errors.surname?.message?.toString()}
+              </p>
+            </div>
             {!isPassChanging && (
               <Pass
                 setIsPassChanging={setIsPassChanging}
@@ -110,19 +133,15 @@ export const Profile = () => {
             )}
             {isPassChanging && (
               <>
-                <ProfileInput
-                  name="oldPass"
-                  type="password"
-                  text="Старый пароль"
-                  value={passwords.oldPass}
-                  setFormData={setPasswords}
+                <ShowPass
+                  pass="old"
+                  passwords={passwords}
+                  setPasswords={setPasswords}
                 />
-                <ProfileInput
-                  name="newPass"
-                  type="password"
-                  text="Новый пароль"
-                  value={passwords.newPass}
-                  setFormData={setPasswords}
+                <ShowPass
+                  pass="new"
+                  passwords={passwords}
+                  setPasswords={setPasswords}
                 />
                 {passwords.passError && (
                   <div
@@ -141,10 +160,10 @@ export const Profile = () => {
               </>
             )}
           </div>
-          <Button onClick={saveData} className="h-10 w-40 text-sm">
+          <Button type="submit" className="h-10 w-40 text-sm">
             Сохранить
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );
